@@ -1,27 +1,25 @@
 ---
-- name: "Build container with ansible"
+- name: "Build a container with ansible"
   hosts: localhost
+  connection: local
   tasks:
-    - name: stop running ansible-container
-      command: docker stop ansible-container
+    - name: stop current running container
+      command: docker stop web-container
       ignore_errors: yes
 
-    - name: remove ansible-container
-      command: docker rm ansible-container
+    - name: remove stopped container
+      command: docker rm web-container
       ignore_errors: yes
 
-    - name: remove ansible-img
-      command: docker rmi ansible-img .
+    - name: remove comingsoon-image
+      command: docker rmi sgomdi/comingsoon-page
       ignore_errors: yes
 
-    - name: build docker image from dockerfile
-      command: docker build -t ansible-img .
+    - name: build docker image using the Dockerfile
+      command: docker build -t sgomdi/comingsoon-page .
 
-    - name: create tag to image
-      command: docker tag ansible-img sgomdi/comingsoon-web-img
+    - name: Push Image to dockerhub
+      command: docker push sgomdi/comingsoon-page
 
-    - name: push image to dockerhub
-      command: docker push sgomdi/comingsoon-web-img
-
-    - name: run container from ansible-img
-      command: docker run -d --name ansible-container -p 8087:80 ansible-img
+    - name: run container
+      command: docker run -d --name web-container -p 5000:80 sgomdi/comingsoon-page
