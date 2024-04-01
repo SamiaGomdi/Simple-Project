@@ -14,15 +14,6 @@ pipeline {
             }
         }
         
-        stage('Build') {
-            steps {
-                // Ajoutez ici les étapes de construction de votre projet (compilation, installation des dépendances, etc.)
-                // Par exemple :
-                sh 'npm install' // Installation des dépendances Node.js
-                sh 'composer install' // Installation des dépendances PHP avec Composer
-            }
-        }
-        
         stage('SonarQube analysis') {
             steps {
                 script {
