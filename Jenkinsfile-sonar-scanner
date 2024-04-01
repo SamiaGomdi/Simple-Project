@@ -17,13 +17,8 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script {
-                    withSonarQubeEnv('SonarQube') {
-                        sh "sonar-scanner \
-                            -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
-                            -Dsonar.sources=./ \
-                            -Dsonar.host.url=${SONARQUBE_URL} \
-                            -Dsonar.login=${SONARQUBE_LOGIN}"
-                    }
+                    // Lancement de l'analyse du code avec SonarQube
+                    sh 'sonar-scanner'
                 }
             }
         }
