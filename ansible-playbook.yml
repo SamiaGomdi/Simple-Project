@@ -1,6 +1,6 @@
 ---
 - name: "Build container with ansible"
-  hosts: localhost
+  hosts: wsl
   tasks:
     - name: stop running ansible-container
       command: docker stop ansible-container
@@ -25,3 +25,5 @@
 
     - name: run container from ansible-img
       command: docker run -d --name ansible-container -p 8087:80 ansible-img
+
+  user: samia
