@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    
+    environment {
+        SONARQUBE_URL = 'http://localhost:9999' // URL de votre instance SonarQube
+        SONARQUBE_LOGIN = credentials('sonarqube-login') // ID de vos identifiants SonarQube dans Jenkins
+        SONARQUBE_PROJECT_KEY = 'simple-project' // Clé unique de votre projet dans SonarQube
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Ajoutez ici les étapes de construction de votre projet (compilation, installation des dépendances, etc.)
+                // Par exemple :
+                sh 'npm install' // Installation des dépendances Node.js
+                sh 'composer install' // Installation des dépendances PHP avec Composer
+            }
+        }
+        
+        stage('SonarQube analysis') {
+            steps {
+                script {
+                    withSonarQubeEnv('SonarQube') {
+                        sh "sonar-scanner \
+                            -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} \
+                            -Dsonar.sources=./ \
+                            -Dsonar.host.url=${SONARQUBE_URL} \
+                            -Dsonar.login=${SONARQUBE_LOGIN}"
+                    }
+                }
+            }
+        }
+    }
+}
