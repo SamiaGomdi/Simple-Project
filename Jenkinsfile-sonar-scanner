@@ -17,7 +17,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 // Définir l'environnement SonarQube
-                withSonarQubeEnv() {
+                withSonarQubeEnv('sonarqube') {
                     // Utiliser l'outil SonarScanner
                     def scannerHome = tool 'SonarScanner'
                     
