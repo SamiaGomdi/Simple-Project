@@ -28,7 +28,7 @@ pipeline {
         stage('Notify Developers via Slack') {
             steps {
                 // Utilisation de la notification Slack
-                slackSend color: 'good', message: "L'analyse SonarQube pour le projet a été effectuée avec succès.", channel: 'devops_jenkins', tokenCredentialId: 'CTPIGyP233pW8UZK5sfWUQln'
+                slackSend color: 'good', message: "L'analyse SonarQube pour le projet a été effectuée avec succès.", channel: 'devops_jenkins', tokenCredentialId: 'fQ6DvaLTdlm24mYNt4sRx58p'
             }
         }
     }
