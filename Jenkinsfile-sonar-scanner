@@ -16,13 +16,15 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                // Définir l'environnement SonarQube
-                withSonarQubeEnv('sonarqube') {
-                    // Utiliser l'outil SonarScanner
-                    def scannerHome = tool 'SonarScanner'
-                    
-                    // Exécuter l'analyse SonarQube
-                    sh "${scannerHome}/bin/sonar-scanner"
+                script {
+                    // Définir l'environnement SonarQube
+                    withSonarQubeEnv('sonarqube') {
+                        // Utiliser l'outil SonarScanner
+                        def scannerHome = tool 'SonarScanner'
+                        
+                        // Exécuter l'analyse SonarQube
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
             }
         }
