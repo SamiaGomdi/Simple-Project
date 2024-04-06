@@ -19,12 +19,13 @@ pipeline {
                 script {
                     // Définir l'environnement SonarQube
                     withSonarQubeEnv('sonarqube') {
-                        // Utiliser l'outil SonarScanner
-                        def scannerHome = tool 'SonarScanner'
-                        
-                        // Exécuter l'analyse SonarQube
-                        sh "${scannerHome}/bin/sonar-scanner"
+                    def scannerHome = tool name: 'sonar_scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
+                        withSonarQubeEnv('sonar_scanner') { 
+                          sh "${scannerHome}/bin/sonar-scanner"
+                        }
                     }
+
+
                 }
             }
         }
