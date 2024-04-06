@@ -18,14 +18,10 @@ pipeline {
             steps {
                 script {
                     // Définir l'environnement SonarQube
-                    withSonarQubeEnv('SonarQube Server') {
-                    def scannerHome = tool 'SonarQube Scanner';
-                        withSonarQubeEnv('sonar_scanner') { 
+                    withSonarQubeEnv('sonarqube') {
+                    def scannerHome = tool 'SonarQube Scanner 2.8'; 
                           sh "${scannerHome}/bin/sonar-scanner"
-                        }
                     }
-
-
                 }
             }
         }
