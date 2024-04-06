@@ -2,9 +2,9 @@ pipeline {
     agent any
     
     environment {
-        SONARQUBE_URL = 'http://localhost:9999' // URL de votre instance SonarQube
+        SONARQUBE_URL = 'http://localhost:9000' // URL de votre instance SonarQube
         SONARQUBE_LOGIN = credentials('sonarqube-login') // ID de vos identifiants SonarQube dans Jenkins
-        SONARQUBE_PROJECT_KEY = 'simple-project' // Clé unique de votre projet dans SonarQube
+        SONARQUBE_PROJECT_KEY = 'simple_project' // Clé unique de votre projet dans SonarQube
     }
     
     stages {
@@ -14,13 +14,11 @@ pipeline {
             }
         }
         
-        stage('SonarQube analysis') {
-            steps {
-                script {
-                    // Lancement de l'analyse du code avec SonarQube
-                    sh 'sonar-scanner'
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'SonarScanner';
+                withSonarQubeEnv() {
+                sh "${scannerHome}/bin/sonar-scanner"
                 }
-            }
         }
     }
 }
