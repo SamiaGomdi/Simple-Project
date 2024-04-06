@@ -20,7 +20,8 @@ pipeline {
                     // Définir l'environnement SonarQube
                     withSonarQubeEnv('sonarqube') {
                     def scannerHome = tool 'SonarQube Scanner 2.8'; 
-                          sh "${scannerHome}/bin/sonar-scanner"
+                        sh "${scannerHome}/bin/sonar-scanner -X" // Ajouter l'option -X pour activer le mode de débogage
+
                     }
                 }
             }
