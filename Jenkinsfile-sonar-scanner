@@ -7,7 +7,14 @@ pipeline {
         SONARQUBE_PROJECT_KEY = 'simple_project' // Clé unique de votre projet dans SonarQube
     }
     
-    stage('SonarQube Analysis') {
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('SonarQube Analysis') {
             steps {
                 // Définir l'environnement SonarQube
                 withSonarQubeEnv() {
@@ -18,5 +25,6 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
+        }
     }
 }
