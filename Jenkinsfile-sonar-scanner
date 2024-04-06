@@ -20,7 +20,7 @@ pipeline {
                     // Définir l'environnement SonarQube
                     withSonarQubeEnv('sonarqube') {
                     def scannerHome = tool 'SonarQube Scanner 5.0.1.3006'; 
-                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.login=squ_41e4b160591a46c9e0b0e3140333e63dc5baedc1"
+                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=simple_project -Dsonar.login=squ_41e4b160591a46c9e0b0e3140333e63dc5baedc1"
                     }
                 }
             }
