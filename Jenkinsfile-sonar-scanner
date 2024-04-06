@@ -25,5 +25,11 @@ pipeline {
                 }
             }
         }
+        stage('Notify Developers via Slack') {
+            steps {
+                // Utilisation de la notification Slack
+                slackSend color: 'good', message: "L'analyse SonarQube pour le projet a été effectuée avec succès.", channel: 'devops_jenkins'
+            }
+        }
     }
 }
