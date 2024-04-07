@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         SONARQUBE_URL = 'http://localhost:9000' // URL de votre instance SonarQube
-        SONARQUBE_LOGIN = credentials('sonarqube-login') // ID de vos identifiants SonarQube dans Jenkins
+        SONARQUBE_LOGIN = credentials('sonar-token') // ID de vos identifiants SonarQube dans Jenkins
         SONARQUBE_PROJECT_KEY = 'simple_project' // Clé unique de votre projet dans SonarQube
     }
     
