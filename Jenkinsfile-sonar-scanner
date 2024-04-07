@@ -5,6 +5,7 @@ pipeline {
         SONARQUBE_URL = 'http://localhost:9000' // URL de votre instance SonarQube
         SONARQUBE_LOGIN = credentials('sonar-token') // ID de vos identifiants SonarQube dans Jenkins
         SONARQUBE_PROJECT_KEY = 'simple_project' // Clé unique de votre projet dans SonarQube
+        SLACK_LOGIN = credentials('slack-token') // ID de vos identifiants Slack dans Jenkins
     }
     
     stages {
@@ -20,7 +21,7 @@ pipeline {
                     // Définir l'environnement SonarQube
                     withSonarQubeEnv('sonarqube') {
                     def scannerHome = tool 'SonarQube Scanner 5.0.1.3006'; 
-                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=simple_project -Dsonar.login=squ_41e4b160591a46c9e0b0e3140333e63dc5baedc1"
+                        sh "${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=${SONARQUBE_PROJECT_KEY} -Dsonar.login=${SONARQUBE_LOGIN}"
                     }
                 }
             }
@@ -28,7 +29,7 @@ pipeline {
         stage('Notify Developers via Slack') {
             steps {
                 // Utilisation de la notification Slack
-                slackSend color: 'good', message: "L'analyse SonarQube pour le projet a été effectuée avec succès.", channel: 'devops_jenkins', tokenCredentialId: 'fQ6DvaLTdlm24mYNt4sRx58p'
+                slackSend color: 'good', message: "L'analyse SonarQube pour le projet a été effectuée avec succès.", channel: 'devops_jenkins', "${SLACK_LOGIN}"
             }
         }
     }
